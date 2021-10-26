@@ -833,30 +833,30 @@ public class Game extends Canvas implements Runnable {
                             || (checkers[objectLocation + 8] == 3 && (checkers[(objectLocation + 8) - 9] == 2
                                     || checkers[(objectLocation + 8) - 9] == 4)) && (objectLocation + 8) % 8 != 0
                                     && ((objectLocation - 9) + 8) % 8 != 0 && (objectLocation - 9) - 9 > -1) {
-                        if (((checkers[objectLocation + 8] == 2 || checkers[objectLocation + 8] == 4)
+                        if ((((checkers[objectLocation + 8] == 2 || checkers[objectLocation + 8] == 4)
                                 && checkers[(objectLocation + 8) - 9] % 2 != 0)
                                 || (checkers[objectLocation + 8] == 3 && (checkers[(objectLocation + 8) - 9] == 2
-                                        || checkers[(objectLocation + 8) - 9] == 4)) && (objectLocation - 9) - 9 > -1
+                                        || checkers[(objectLocation + 8) - 9] == 4)) && (objectLocation - 9) - 9 > -1)
                                         && checkers[((objectLocation - 9) - 9) + 8] == 0
                                         && (objectLocation + 8) % 8 != 0 && ((objectLocation - 9) + 8) % 8 != 0) {
                             possibleMoves[((objectLocation - 9) - 9) + 8] = 8;
-                            if (((checkers[objectLocation + 8] == 2 || checkers[objectLocation + 8] == 4)
+                            if ((((checkers[objectLocation + 8] == 2 || checkers[objectLocation + 8] == 4)
                                     && checkers[(((objectLocation + 8) - 9) - 9) - 9] % 2 != 0)
                                     || (checkers[objectLocation + 8] == 3
                                             && (checkers[(((objectLocation + 8) - 9) - 9) - 9] == 2
                                                     || checkers[(((objectLocation + 8) - 9) - 9) - 9] == 4))
-                                            && (((objectLocation - 9) - 9) - 9) - 9 > -1
+                                            && (((objectLocation - 9) - 9) - 9) - 9 > -1)
                                             && checkers[((((objectLocation - 9) - 9) - 9) - 9) + 8] == 0
                                             && (((objectLocation - 9) - 9) + 8) % 8 != 0
                                             && ((((objectLocation - 9) - 9) - 9) + 8) % 8 != 0) {
                                 possibleMoves[((((objectLocation - 9) - 9) - 9) - 9) + 8] = 18;
-                                if (((checkers[objectLocation + 8] == 2 || checkers[objectLocation + 8] == 4)
+                                if ((((checkers[objectLocation + 8] == 2 || checkers[objectLocation + 8] == 4)
                                         && checkers[(((((objectLocation + 8) - 9) - 9) - 9) - 9) - 9] % 2 != 0)
                                         || (checkers[objectLocation + 8] == 3
                                                 && (checkers[(((((objectLocation + 8) - 9) - 9) - 9) - 9) - 9] == 2
                                                         || checkers[(((((objectLocation + 8) - 9) - 9) - 9) - 9)
                                                                 - 9] == 4))
-                                                && (((((objectLocation - 9) - 9) - 9) - 9) - 9) - 9 > -1
+                                                && (((((objectLocation - 9) - 9) - 9) - 9) - 9) - 9 > -1)
                                                 && checkers[((((((objectLocation - 9) - 9) - 9) - 9) - 9) - 9) + 8] == 0
                                                 && (((((objectLocation - 9) - 9) - 9) - 9) + 8) % 8 != 0
                                                 && ((((((objectLocation - 9) - 9) - 9) - 9) - 9) + 8) % 8 != 0) {
@@ -871,30 +871,30 @@ public class Game extends Canvas implements Runnable {
                             || (checkers[objectLocation + 8] == 3 && (checkers[(objectLocation + 8) - 7] == 2
                                     || checkers[(objectLocation + 8) - 7] == 4)) && (objectLocation + 1) % 8 != 0
                                     && ((objectLocation - 7) + 1) % 8 != 0 && (objectLocation - 7) - 7 > -1) {
-                        if (((checkers[objectLocation + 8] == 2 || checkers[objectLocation + 8] == 4)
+                        if ((((checkers[objectLocation + 8] == 2 || checkers[objectLocation + 8] == 4)
                                 && checkers[(objectLocation + 8) - 7] % 2 != 0)
                                 || (checkers[objectLocation + 8] == 3 && (checkers[(objectLocation + 8) - 7] == 2
-                                        || checkers[(objectLocation + 8) - 7] == 4)) && (objectLocation - 7) - 7 > -1
+                                        || checkers[(objectLocation + 8) - 7] == 4)) && (objectLocation - 7) - 7 > -1)
                                         && checkers[((objectLocation - 7) - 7) + 8] == 0
                                         && (objectLocation + 1) % 8 != 0 && ((objectLocation - 7) + 1) % 8 != 0) {
                             possibleMoves[((objectLocation - 7) - 7) + 8] = 7;
-                            if (((checkers[objectLocation + 8] == 2 || checkers[objectLocation + 8] == 4)
+                            if ((((checkers[objectLocation + 8] == 2 || checkers[objectLocation + 8] == 4)
                                     && checkers[(((objectLocation + 8) - 7) - 7) - 7] % 2 != 0)
                                     || (checkers[objectLocation + 8] == 3
                                             && (checkers[(((objectLocation + 8) - 7) - 7) - 7] == 2
                                                     || checkers[(((objectLocation + 8) - 7) - 7) - 7] == 4))
-                                            && (((objectLocation - 7) - 7) - 7) - 7 > -1
+                                            && (((objectLocation - 7) - 7) - 7) - 7 > -1)
                                             && checkers[((((objectLocation - 7) - 7) - 7) - 7) + 8] == 0
                                             && (((objectLocation - 7) - 7) + 1) % 8 != 0
                                             && ((((objectLocation - 7) - 7) - 7) + 1) % 8 != 0) {
                                 possibleMoves[((((objectLocation - 7) - 7) - 7) - 7) + 8] = 17;
-                                if (((checkers[objectLocation + 8] == 2 || checkers[objectLocation + 8] == 4)
+                                if ((((checkers[objectLocation + 8] == 2 || checkers[objectLocation + 8] == 4)
                                         && checkers[(((((objectLocation + 8) - 7) - 7) - 7) - 7) - 7] % 2 != 0)
                                         || (checkers[objectLocation + 8] == 3
                                                 && (checkers[(((((objectLocation + 8) - 7) - 7) - 7) - 7) - 7] == 2
                                                         || checkers[(((((objectLocation + 8) - 7) - 7) - 7) - 7)
                                                                 - 7] == 4))
-                                                && (((((objectLocation - 7) - 7) - 7) - 7) - 7) - 7 > -1
+                                                && (((((objectLocation - 7) - 7) - 7) - 7) - 7) - 7 > -1)
                                                 && checkers[((((((objectLocation - 7) - 7) - 7) - 7) - 7) - 7) + 8] == 0
                                                 && (((((objectLocation - 7) - 7) - 7) - 7) + 1) % 8 != 0
                                                 && ((((((objectLocation - 7) - 7) - 7) - 7) - 7) + 1) % 8 != 0) {
@@ -922,32 +922,32 @@ public class Game extends Canvas implements Runnable {
                             || (checkers[(objectLocation + 8)] == 4 && (checkers[(objectLocation + 9) + 8] == 1
                                     || checkers[((objectLocation + 9) + 8)] == 3))))
                             && (objectLocation + 1) % 8 != 0 && ((objectLocation + 9) + 1) % 8 != 0) {
-                        if ((((checkers[objectLocation + 8] == 1 || checkers[objectLocation + 8] == 3)
+                        if (((((checkers[objectLocation + 8] == 1 || checkers[objectLocation + 8] == 3)
                                 && ((checkers[(objectLocation + 8) + 9] == 2
                                         || checkers[(objectLocation + 8) + 9] == 4))
                                 || (checkers[(objectLocation + 8)] == 4 && (checkers[(objectLocation + 9) + 8] == 1
-                                        || checkers[((objectLocation + 9) + 8)] == 3))))
+                                        || checkers[((objectLocation + 9) + 8)] == 3)))))
                                 && checkers[((objectLocation + 9) + 9) + 8] == 0 && (objectLocation + 9) + 9 < 64
                                 && (objectLocation + 1) % 8 != 0 && ((objectLocation + 9) + 1) % 8 != 0) {
                             possibleMoves[((objectLocation + 9) + 9) + 8] = 5;
-                            if ((((checkers[objectLocation + 8] == 1 || checkers[objectLocation + 8] == 3)
+                            if (((((checkers[objectLocation + 8] == 1 || checkers[objectLocation + 8] == 3)
                                     && ((checkers[(((objectLocation + 8) + 9) + 9) + 9] == 2
                                             || checkers[(((objectLocation + 8) + 9) + 9) + 9] == 4))
                                     || (checkers[(objectLocation + 8)] == 4
                                             && (checkers[(((objectLocation + 9) + 9) + 9) + 8] == 1
-                                                    || checkers[((((objectLocation + 9) + 9) + 9) + 8)] == 3))))
+                                                    || checkers[((((objectLocation + 9) + 9) + 9) + 8)] == 3)))))
                                     && checkers[((((objectLocation + 9) + 9) + 9) + 9) + 8] == 0
                                     && (((objectLocation + 9) + 9) + 9) + 9 < 64
                                     && (((objectLocation + 9) + 9) + 1) % 8 != 0
                                     && ((((objectLocation + 9) + 9) + 9) + 1) % 8 != 0) {
                                 possibleMoves[((((objectLocation + 9) + 9) + 9) + 9) + 8] = 15;
-                                if ((((checkers[objectLocation + 8] == 1 || checkers[objectLocation + 8] == 3)
+                                if (((((checkers[objectLocation + 8] == 1 || checkers[objectLocation + 8] == 3)
                                         && ((checkers[(((((objectLocation + 8) + 9) + 9) + 9) + 9) + 9] == 2
                                                 || checkers[(((((objectLocation + 8) + 9) + 9) + 9) + 9) + 9] == 4))
                                         || (checkers[(objectLocation + 8)] == 4
                                                 && (checkers[(((((objectLocation + 9) + 9) + 9) + 9) + 9) + 8] == 1
                                                         || checkers[((((((objectLocation + 9) + 9) + 9) + 9) + 9)
-                                                                + 8)] == 3))))
+                                                                + 8)] == 3)))))
                                         && checkers[((((((objectLocation + 9) + 9) + 9) + 9) + 9) + 9) + 8] == 0
                                         && (((((objectLocation + 9) + 9) + 9) + 9) + 9) + 9 < 64
                                         && (((((objectLocation + 9) + 9) + 9) + 9) + 1) % 8 != 0
@@ -962,28 +962,28 @@ public class Game extends Canvas implements Runnable {
                             && (checkers[(objectLocation + 8) + 7] == 2 || checkers[(objectLocation + 8) + 7] == 4))
                             || (checkers[objectLocation + 8] == 4 && checkers[(objectLocation + 8) + 7] % 2 != 0)
                                     && (objectLocation + 8) % 8 != 0 && ((objectLocation + 7) + 8) % 8 != 0) {
-                        if (((checkers[objectLocation + 8] == 1 || checkers[objectLocation + 8] == 3)
+                        if ((((checkers[objectLocation + 8] == 1 || checkers[objectLocation + 8] == 3)
                                 && (checkers[(objectLocation + 8) + 7] == 2 || checkers[(objectLocation + 8) + 7] == 4))
-                                || (checkers[objectLocation + 8] == 4 && checkers[(objectLocation + 8) + 7] % 2 != 0)
+                                || (checkers[objectLocation + 8] == 4 && checkers[(objectLocation + 8) + 7] % 2 != 0))
                                         && checkers[((objectLocation + 7) + 7) + 8] == 0
                                         && (objectLocation + 7) + 7 < 64 && (objectLocation + 8) % 8 != 0
                                         && ((objectLocation + 7) + 8) % 8 != 0) {
                             possibleMoves[((objectLocation + 7) + 7) + 8] = 6;
-                            if (((checkers[objectLocation + 8] == 1 || checkers[objectLocation + 8] == 3)
+                            if ((((checkers[objectLocation + 8] == 1 || checkers[objectLocation + 8] == 3)
                                     && (checkers[(((objectLocation + 8) + 7) + 7) + 7] == 2
                                             || checkers[(((objectLocation + 8) + 7) + 7) + 7] == 4))
                                     || (checkers[objectLocation + 8] == 4
-                                            && checkers[(((objectLocation + 8) + 7) + 7) + 7] % 2 != 0)
+                                            && checkers[(((objectLocation + 8) + 7) + 7) + 7] % 2 != 0))
                                             && checkers[((((objectLocation + 7) + 7) + 7) + 7) + 8] == 0
                                             && ((((objectLocation + 7) + 7) + 7) + 7) < 64
                                             && (((objectLocation + 7) + 7) + 8) % 8 != 0
                                             && ((((objectLocation + 7) + 7) + 7) + 8) % 8 != 0) {
                                 possibleMoves[((((objectLocation + 7) + 7) + 7) + 7) + 8] = 16;
-                                if (((checkers[objectLocation + 8] == 1 || checkers[objectLocation + 8] == 3)
+                                if ((((checkers[objectLocation + 8] == 1 || checkers[objectLocation + 8] == 3)
                                         && (checkers[(((((objectLocation + 8) + 7) + 7) + 7) + 7) + 7] == 2
                                                 || checkers[(((((objectLocation + 8) + 7) + 7) + 7) + 7) + 7] == 4))
                                         || (checkers[objectLocation + 8] == 4
-                                                && checkers[(((((objectLocation + 8) + 7) + 7) + 7) + 7) + 7] % 2 != 0)
+                                                && checkers[(((((objectLocation + 8) + 7) + 7) + 7) + 7) + 7] % 2 != 0))
                                                 && checkers[((((((objectLocation + 7) + 7) + 7) + 7) + 7) + 7) + 8] == 0
                                                 && (((((objectLocation + 7) + 7) + 7) + 7) + 7) + 7 < 64
                                                 && (((((objectLocation + 7) + 7) + 7) + 7) + 8) % 8 != 0
