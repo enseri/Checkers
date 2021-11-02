@@ -31,7 +31,7 @@ public class Game extends Canvas implements Runnable {
         }
         WIDTH = 52 * line;
         HEIGHT = 54 * line;
-        new Window(WIDTH, HEIGHT, "TICTACTOE", this);
+        new Window(WIDTH, HEIGHT, "TICTACTOE", this, null, false);
 
         handler = new Handler();
 
