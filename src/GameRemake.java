@@ -30,8 +30,8 @@ public class GameRemake extends Canvas implements Runnable {
         while (line != Math.sqrt(size)) {
             line++;
         }
-        WIDTH = 52 * line;
-        HEIGHT = 54 * line;
+        WIDTH = 50 * line;
+        HEIGHT = 50 * line;
         new Window(WIDTH, HEIGHT, "TICTACTOE", null, this, true);
 
         handler = new Handler();
@@ -178,6 +178,7 @@ public class GameRemake extends Canvas implements Runnable {
 
     public void begin() {
         int clicks = 0;
+        int player = 1;
         int objectLocation = 0;
         boolean runAgain = false;
         while (clicks != -1) {
@@ -186,137 +187,224 @@ public class GameRemake extends Canvas implements Runnable {
             }
             clicks = mouse.getClicks();
             objectLocation = mouse.getObjectLoc();
-            if(checkers[objectLocation + 8] != 0)
+            if (checkers[objectLocation + 8] != 0 && ((player == 1 && checkers[objectLocation + 8] % 2 == 0)
+                    || (player == 2 && checkers[objectLocation + 8] % 3 == 0)))
                 getPossibleMoves(objectLocation);
+            else if (possibleMoves[objectLocation + 8] == 0) {
+                for (int i = 0; i != 100; i++) {
+                    if (possibleMoves[i] != 0) {
+                        int x = (i - 8) % 8;
+                        x *= 50;
+                        int y = (i - 8) / 8;
+                        y *= 50;
+                        if (checkers[i] == 0)
+                            handler.replaceObject((i - 8) * 3, new GRAYTILE(x, y, ID.GRAYTILE));
+                        possibleMoves[i] = 0;
+                        possibleType[i] = 0;
+                    }
+                }
+            }
             int tempObjectLocation = objectLocation;
-            if(possibleMoves[objectLocation + 8] != 0){
+            if (possibleMoves[objectLocation + 8] != 0) {
+                player = (player % 2) + 1;
                 runAgain = true;
-                while(runAgain){
-                    switch(possibleMoves[tempObjectLocation + 8]){
-                        case 1:
-                            runAgain = false;
-                            checkers[objectLocation + 17] = 0;
+                while (runAgain) {
+                    switch (possibleMoves[tempObjectLocation + 8]) {
+                    case 1:
+                        if (objectLocation < 10 && possibleType[objectLocation + 8] == 2)
+                            possibleType[objectLocation + 8] = 4;
+                        runAgain = false;
+                        checkers[objectLocation + 17] = 0;
+                        handler.replaceObject((tempObjectLocation + 9) * 3, new GRAYTILE(
+                                ((tempObjectLocation + 9) % 8) * 50, ((tempObjectLocation + 9) / 8) * 50, ID.GRAYTILE));
+                        checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                        break;
+                    case 2:
+                        if (objectLocation < 10 && possibleType[objectLocation + 8] == 2)
+                            possibleType[objectLocation + 8] = 4;
+                        runAgain = false;
+                        checkers[objectLocation + 15] = 0;
+                        handler.replaceObject((tempObjectLocation + 7) * 3, new GRAYTILE(
+                                ((tempObjectLocation + 7) % 8) * 50, ((tempObjectLocation + 7) / 8) * 50, ID.GRAYTILE));
+                        checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                        break;
+                    case 3:
+                        if (objectLocation > 55 && possibleType[objectLocation + 8] == 3)
+                            possibleType[objectLocation + 8] = 9;
+                        runAgain = false;
+                        checkers[objectLocation + 1] = 0;
+                        handler.replaceObject((tempObjectLocation - 7) * 3, new GRAYTILE(
+                                ((tempObjectLocation - 7) % 8) * 50, ((tempObjectLocation - 7) / 8) * 50, ID.GRAYTILE));
+                        checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                        break;
+                    case 4:
+                        if (objectLocation > 55 && possibleType[objectLocation + 8] == 3)
+                            possibleType[objectLocation + 8] = 9;
+                        runAgain = false;
+                        checkers[objectLocation - 1] = 0;
+                        handler.replaceObject((tempObjectLocation - 9) * 3, new GRAYTILE(
+                                ((tempObjectLocation - 9) % 8) * 50, ((tempObjectLocation - 9) / 8) * 50, ID.GRAYTILE));
+                        checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                        break;
+                    case 5:
+                        if (objectLocation < 10 && possibleType[objectLocation + 8] == 2)
+                            possibleType[objectLocation + 8] = 4;
+                        runAgain = false;
+                        if (possibleMoves[tempObjectLocation + 26] != 0) {
                             checkers[objectLocation + 8] = possibleType[objectLocation + 8];
-                            break;
-                        case 2:
-                            runAgain = false;
-                            checkers[objectLocation + 15] = 0;
+                            checkers[tempObjectLocation + 17] = 0;
+                            handler.replaceObject((tempObjectLocation + 9) * 3,
+                                    new GRAYTILE(((tempObjectLocation + 9) % 8) * 50,
+                                            ((tempObjectLocation + 9) / 8) * 50, ID.GRAYTILE));
+                            tempObjectLocation += 18;
+                            runAgain = true;
+                        } else if (checkers[tempObjectLocation + 26] != 0) {
+                            checkers[tempObjectLocation + 26] = 0;
+                            handler.replaceObject((tempObjectLocation + 18) * 3,
+                                    new GRAYTILE(((tempObjectLocation + 18) % 8) * 50,
+                                            ((tempObjectLocation + 18) / 8) * 50, ID.GRAYTILE));
+                            checkers[tempObjectLocation + 17] = 0;
+                            handler.replaceObject((tempObjectLocation + 9) * 3,
+                                    new GRAYTILE(((tempObjectLocation + 9) % 8) * 50,
+                                            ((tempObjectLocation + 9) / 8) * 50, ID.GRAYTILE));
                             checkers[objectLocation + 8] = possibleType[objectLocation + 8];
-                            break;
-                        case 3:
-                            runAgain = false;
-                            checkers[objectLocation + 1] = 0;
+                        }
+                        break;
+                    case 6:
+                        if (objectLocation < 10 && possibleType[objectLocation + 8] == 2)
+                            possibleType[objectLocation + 8] = 4;
+                        runAgain = false;
+                        if (possibleMoves[tempObjectLocation + 22] != 0) {
                             checkers[objectLocation + 8] = possibleType[objectLocation + 8];
-                            break;
-                        case 4:
-                            runAgain = false;
-                            checkers[objectLocation - 1] = 0;
+                            checkers[tempObjectLocation + 15] = 0;
+                            handler.replaceObject((tempObjectLocation + 7) * 3,
+                                    new GRAYTILE(((tempObjectLocation + 7) % 8) * 50,
+                                            ((tempObjectLocation + 7) / 8) * 50, ID.GRAYTILE));
+                            tempObjectLocation += 14;
+                            runAgain = true;
+                        } else if (checkers[tempObjectLocation + 22] != 0) {
+                            checkers[tempObjectLocation + 22] = 0;
+                            handler.replaceObject((tempObjectLocation + 14) * 3,
+                                    new GRAYTILE(((tempObjectLocation + 14) % 8) * 50,
+                                            ((tempObjectLocation + 14) / 8) * 50, ID.GRAYTILE));
+                            checkers[tempObjectLocation + 15] = 0;
+                            handler.replaceObject((tempObjectLocation + 7) * 3,
+                                    new GRAYTILE(((tempObjectLocation + 7) % 8) * 50,
+                                            ((tempObjectLocation + 7) / 8) * 50, ID.GRAYTILE));
                             checkers[objectLocation + 8] = possibleType[objectLocation + 8];
-                            break;
-                        case 5:
-                            runAgain = false;
-                            if(possibleMoves[tempObjectLocation + 26] != 0){
-                                checkers[objectLocation + 8] = possibleType[objectLocation + 8];
-                                checkers[tempObjectLocation + 17] = 0;
-                                tempObjectLocation += 18;
-                                runAgain = true;
-                            }
-                            else if(checkers[tempObjectLocation + 26] != 0){
-                                checkers[tempObjectLocation + 26] = 0;
-                                checkers[tempObjectLocation + 17] = 0;
-                                checkers[objectLocation + 8] = possibleType[objectLocation + 8];
-                            }
-                            break;
-                        case 6:
-                            runAgain = false;
-                            if(possibleMoves[tempObjectLocation + 22] != 0){
-                                checkers[objectLocation + 8] = possibleType[objectLocation + 8];
-                                checkers[tempObjectLocation + 15] = 0;
-                                tempObjectLocation += 14;
-                                runAgain = true;
-                            }
-                            else if(checkers[tempObjectLocation + 22] != 0){
-                                checkers[tempObjectLocation + 22] = 0;
-                                checkers[tempObjectLocation + 15] = 0;
-                                checkers[objectLocation + 8] = possibleType[objectLocation + 8];
-                            }
-                            break;
-                        case 7:
-                            runAgain = false;
-                            if(possibleMoves[tempObjectLocation - 6] != 0){
-                                checkers[objectLocation + 8] = possibleType[objectLocation + 8];
-                                checkers[tempObjectLocation + 1] = 0;
-                                tempObjectLocation -= 14;
-                                runAgain = true;
-                            }
-                            else if(checkers[tempObjectLocation - 6] != 0){
-                                checkers[tempObjectLocation - 6] = 0;
-                                checkers[tempObjectLocation + 1] = 0;
-                                checkers[objectLocation + 8] = possibleType[objectLocation + 8];
-                            }
-                            break;
-                        case 8:
-                            runAgain = false;
-                            if(possibleMoves[tempObjectLocation - 10] != 0){
-                                checkers[objectLocation + 8] = possibleType[objectLocation + 8];
-                                checkers[tempObjectLocation - 1] = 0;
-                                tempObjectLocation -= 18;
-                                runAgain = true;
-                            }
-                            else if(checkers[tempObjectLocation - 10] != 0){
-                                checkers[tempObjectLocation - 10] = 0;
-                                checkers[tempObjectLocation - 1] = 0;
-                                checkers[objectLocation + 8] = possibleType[objectLocation + 8];
-                            }
-                            break;
+                        }
+                        break;
+                    case 7:
+                        if (objectLocation > 55 && possibleType[objectLocation + 8] == 3)
+                            possibleType[objectLocation + 8] = 9;
+                        runAgain = false;
+                        if (possibleMoves[tempObjectLocation - 6] != 0) {
+                            checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                            checkers[tempObjectLocation + 1] = 0;
+                            handler.replaceObject((tempObjectLocation - 7) * 3,
+                                    new GRAYTILE(((tempObjectLocation - 7) % 8) * 50,
+                                            ((tempObjectLocation - 7) / 8) * 50, ID.GRAYTILE));
+                            tempObjectLocation -= 14;
+                            runAgain = true;
+                        } else if (checkers[tempObjectLocation - 6] != 0) {
+                            checkers[tempObjectLocation - 6] = 0;
+                            handler.replaceObject((tempObjectLocation - 14) * 3,
+                                    new GRAYTILE(((tempObjectLocation - 14) % 8) * 50,
+                                            ((tempObjectLocation - 14) / 8) * 50, ID.GRAYTILE));
+                            checkers[tempObjectLocation + 1] = 0;
+                            handler.replaceObject((tempObjectLocation - 7) * 3,
+                                    new GRAYTILE(((tempObjectLocation - 7) % 8) * 50,
+                                            ((tempObjectLocation - 7) / 8) * 50, ID.GRAYTILE));
+                            checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                        }
+                        break;
+                    case 8:
+                        if (objectLocation > 55 && possibleType[objectLocation + 8] == 3)
+                            possibleType[objectLocation + 8] = 9;
+                        runAgain = false;
+                        if (possibleMoves[tempObjectLocation - 10] != 0) {
+                            checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                            checkers[tempObjectLocation - 1] = 0;
+                            handler.replaceObject((tempObjectLocation - 9) * 3,
+                                    new GRAYTILE(((tempObjectLocation - 9) % 8) * 50,
+                                            ((tempObjectLocation - 9) / 8) * 50, ID.GRAYTILE));
+                            tempObjectLocation -= 18;
+                            runAgain = true;
+                        } else if (checkers[tempObjectLocation - 10] != 0) {
+                            checkers[tempObjectLocation - 10] = 0;
+                            handler.replaceObject((tempObjectLocation - 18) * 3,
+                                    new GRAYTILE(((tempObjectLocation - 18) % 8) * 50,
+                                            ((tempObjectLocation - 18) / 8) * 50, ID.GRAYTILE));
+                            checkers[tempObjectLocation - 1] = 0;
+                            handler.replaceObject((tempObjectLocation - 9) * 3,
+                                    new GRAYTILE(((tempObjectLocation - 9) % 8) * 50,
+                                            ((tempObjectLocation - 9) / 8) * 50, ID.GRAYTILE));
+                            checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                        }
+                        break;
+                    }
+                }
+                for (int i = 0; i != 100; i++) {
+                    if (possibleMoves[i] != 0) {
+                        int x = (i - 8) % 8;
+                        x *= 50;
+                        int y = (i - 8) / 8;
+                        y *= 50;
+                        if (checkers[i] == 0)
+                            handler.replaceObject((i - 8) * 3, new GRAYTILE(x, y, ID.GRAYTILE));
+                        possibleMoves[i] = 0;
+                        possibleType[i] = 0;
                     }
                 }
                 printCheckers();
             }
         }
     }
-    public void printCheckers(){
+
+    public void printCheckers() {
         for (int i = 0; i != 100; i++) {
             if (checkers[i] == 2) {
                 int x = (i - 8) % 8;
                 x *= 50;
                 int y = (i - 8) / 8;
-                y *= 50; 
+                y *= 50;
                 handler.replaceObject((i - 8) * 3, new REDCHECKER(x, y, ID.REDCHECKER));
             }
             if (checkers[i] == 4) {
                 int x = (i - 8) % 8;
                 x *= 50;
                 int y = (i - 8) / 8;
-                y *= 50; 
+                y *= 50;
                 handler.replaceObject((i - 8) * 3, new REDKING(x, y, ID.REDKING));
             }
             if (checkers[i] == 3) {
                 int x = (i - 8) % 8;
                 x *= 50;
                 int y = (i - 8) / 8;
-                y *= 50; 
+                y *= 50;
                 handler.replaceObject((i - 8) * 3, new BLACKCHECKER(x, y, ID.BLACKCHECKER));
             }
             if (checkers[i] == 9) {
                 int x = (i - 8) % 8;
                 x *= 50;
                 int y = (i - 8) / 8;
-                y *= 50; 
+                y *= 50;
                 handler.replaceObject((i - 8) * 3, new BLACKKING(x, y, ID.BLACKKING));
             }
         }
     }
+
     // checker == 3 || 9 == black
     // checker == 2 || 4 == red
     public void getPossibleMoves(int objectLocation) {
         for (int i = 0; i != 100; i++) {
-            if (possibleMoves[i] != 0 && checkers[i] == 0) {
+            if (possibleMoves[i] != 0) {
                 int x = (i - 8) % 8;
                 x *= 50;
                 int y = (i - 8) / 8;
-                y *= 50; 
-                handler.replaceObject((i - 8) * 3, new GRAYTILE(x, y, ID.GRAYTILE));
+                y *= 50;
+                if (checkers[i] == 0)
+                    handler.replaceObject((i - 8) * 3, new GRAYTILE(x, y, ID.GRAYTILE));
                 possibleMoves[i] = 0;
                 possibleType[i] = 0;
             }
@@ -415,7 +503,7 @@ public class GameRemake extends Canvas implements Runnable {
             }
             // Bottom Right || Possible Move: 8
             if ((tempCheckers[a] + 1) % 8 != 0 && (tempCheckers[a] + 10) % 8 != 0 && tempCheckers[a] + 10 < 64
-                    && (checkerType == 2 || checkerLevel == 1)) {
+                    && (checkerType == 3 || checkerLevel == 1)) {
                 if (checkerType % 3 == 0 && checkers[tempCheckers[a] + 9] % 2 == 0
                         && checkers[tempCheckers[a] + 18] == 0 && checkers[tempCheckers[a] + 9] != 0) {
                     possibleMoves[tempCheckers[a] + 18] = 8;
@@ -434,13 +522,15 @@ public class GameRemake extends Canvas implements Runnable {
             a++;
             if (a != 100)
                 tempCheckers[a] = tempCheckers2[a];
+            if (tempCheckers2[a] == 0 && tempCheckers2[a + 1] == 0 && tempCheckers2[a + 2] == 0)
+                a = 100;
         }
         for (int i = 0; i != 100; i++) {
             if (possibleMoves[i] != 0) {
                 int x = (i - 8) % 8;
                 x *= 50;
                 int y = (i - 8) / 8;
-                y *= 50; 
+                y *= 50;
                 handler.replaceObject((i - 8) * 3, new POSSIBLEMOVE(x, y, ID.POSSIBLEMOVE));
             }
         }
