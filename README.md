@@ -1,18 +1,32 @@
-## Getting Started
+Welcome to Checkers
+Made by enseri, 2021 November 4
+How to play:
+    https://www.youtube.com/watch?time_continue=60&v=ScKIdStgAfU&feature=emb_logo
+    Not My Video -- Credit: Gather Together Games 'on youtube'
+        Notes:
+            The king checker or checker that can move both forward and backward will
+            automatically be put on you piece once you have reached your opponents side.
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+            The window size may need to be adjusted depending on the size of your monitor -- Example
+            My Screen:
+            WIDTH = 50 * line;
+            HEIGHT = 50 * line;
+            Yours(potentially):
+            WIDTH = 52 * line;
+            HEIGHT = 54 * line;
+            simply go into the game files find these lines and adjust them to the proper size
+            this will allow you to see the entire board.
 
-## Folder Structure
+            The console will alert you of whos the winner after each game has ended
+            5 seconds after the alert the game will be reset automatically.
 
-The workspace contains two folders by default, where:
+            If you find any bugs feel free to contact me @ BioMetricMain@gmail.com 
+            
+Currently known bugs:
+    none
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+Thank You for playing my game.
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+P.S. This is only my 3rd game that I have made with JFrame so please play with leniency for the graphics.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
-
-## Dependency Management
-
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+    
