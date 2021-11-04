@@ -14,6 +14,7 @@ public class GameRemake extends Canvas implements Runnable {
     private int size = 64;
     private int checkers[] = new int[100];
     private int possibleMoves[] = new int[100];
+    private int possibleType[] = new int[100];
     private Thread thread;
     private String[] tiles = new String[100];
     private boolean running = false;
@@ -29,8 +30,8 @@ public class GameRemake extends Canvas implements Runnable {
         while (line != Math.sqrt(size)) {
             line++;
         }
-        WIDTH = 50 * line;
-        HEIGHT = 50 * line;
+        WIDTH = 52 * line;
+        HEIGHT = 54 * line;
         new Window(WIDTH, HEIGHT, "TICTACTOE", null, this, true);
 
         handler = new Handler();
@@ -178,6 +179,7 @@ public class GameRemake extends Canvas implements Runnable {
     public void begin() {
         int clicks = 0;
         int objectLocation = 0;
+        boolean runAgain = false;
         while (clicks != -1) {
             while (clicks == mouse.getClicks()) {
                 out.print("");
@@ -186,41 +188,137 @@ public class GameRemake extends Canvas implements Runnable {
             objectLocation = mouse.getObjectLoc();
             if(checkers[objectLocation + 8] != 0)
                 getPossibleMoves(objectLocation);
+            int tempObjectLocation = objectLocation;
             if(possibleMoves[objectLocation + 8] != 0){
-                switch(possibleMoves[objectLocation + 8]){
-                    case 1:
-                    
-                    break;
-                    case 2:
-                    break;
-                    case 3:
-                    break;
-                    case 4:
-                    break;
-                    case 5:
-                    break;
-                    case 6:
-                    break;
-                    case 7:
-                    break;
-                    case 8:
-                    break;
+                runAgain = true;
+                while(runAgain){
+                    switch(possibleMoves[tempObjectLocation + 8]){
+                        case 1:
+                            runAgain = false;
+                            checkers[objectLocation + 17] = 0;
+                            checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                            break;
+                        case 2:
+                            runAgain = false;
+                            checkers[objectLocation + 15] = 0;
+                            checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                            break;
+                        case 3:
+                            runAgain = false;
+                            checkers[objectLocation + 1] = 0;
+                            checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                            break;
+                        case 4:
+                            runAgain = false;
+                            checkers[objectLocation - 1] = 0;
+                            checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                            break;
+                        case 5:
+                            runAgain = false;
+                            if(possibleMoves[tempObjectLocation + 26] != 0){
+                                checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                                checkers[tempObjectLocation + 17] = 0;
+                                tempObjectLocation += 18;
+                                runAgain = true;
+                            }
+                            else if(checkers[tempObjectLocation + 26] != 0){
+                                checkers[tempObjectLocation + 26] = 0;
+                                checkers[tempObjectLocation + 17] = 0;
+                                checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                            }
+                            break;
+                        case 6:
+                            runAgain = false;
+                            if(possibleMoves[tempObjectLocation + 22] != 0){
+                                checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                                checkers[tempObjectLocation + 15] = 0;
+                                tempObjectLocation += 14;
+                                runAgain = true;
+                            }
+                            else if(checkers[tempObjectLocation + 22] != 0){
+                                checkers[tempObjectLocation + 22] = 0;
+                                checkers[tempObjectLocation + 15] = 0;
+                                checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                            }
+                            break;
+                        case 7:
+                            runAgain = false;
+                            if(possibleMoves[tempObjectLocation - 6] != 0){
+                                checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                                checkers[tempObjectLocation + 1] = 0;
+                                tempObjectLocation -= 14;
+                                runAgain = true;
+                            }
+                            else if(checkers[tempObjectLocation - 6] != 0){
+                                checkers[tempObjectLocation - 6] = 0;
+                                checkers[tempObjectLocation + 1] = 0;
+                                checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                            }
+                            break;
+                        case 8:
+                            runAgain = false;
+                            if(possibleMoves[tempObjectLocation - 10] != 0){
+                                checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                                checkers[tempObjectLocation - 1] = 0;
+                                tempObjectLocation -= 18;
+                                runAgain = true;
+                            }
+                            else if(checkers[tempObjectLocation - 10] != 0){
+                                checkers[tempObjectLocation - 10] = 0;
+                                checkers[tempObjectLocation - 1] = 0;
+                                checkers[objectLocation + 8] = possibleType[objectLocation + 8];
+                            }
+                            break;
+                    }
                 }
+                printCheckers();
             }
         }
     }
-
+    public void printCheckers(){
+        for (int i = 0; i != 100; i++) {
+            if (checkers[i] == 2) {
+                int x = (i - 8) % 8;
+                x *= 50;
+                int y = (i - 8) / 8;
+                y *= 50; 
+                handler.replaceObject((i - 8) * 3, new REDCHECKER(x, y, ID.REDCHECKER));
+            }
+            if (checkers[i] == 4) {
+                int x = (i - 8) % 8;
+                x *= 50;
+                int y = (i - 8) / 8;
+                y *= 50; 
+                handler.replaceObject((i - 8) * 3, new REDKING(x, y, ID.REDKING));
+            }
+            if (checkers[i] == 3) {
+                int x = (i - 8) % 8;
+                x *= 50;
+                int y = (i - 8) / 8;
+                y *= 50; 
+                handler.replaceObject((i - 8) * 3, new BLACKCHECKER(x, y, ID.BLACKCHECKER));
+            }
+            if (checkers[i] == 9) {
+                int x = (i - 8) % 8;
+                x *= 50;
+                int y = (i - 8) / 8;
+                y *= 50; 
+                handler.replaceObject((i - 8) * 3, new BLACKKING(x, y, ID.BLACKKING));
+            }
+        }
+    }
     // checker == 3 || 9 == black
     // checker == 2 || 4 == red
     public void getPossibleMoves(int objectLocation) {
         for (int i = 0; i != 100; i++) {
-            if (possibleMoves[i] != 0) {
+            if (possibleMoves[i] != 0 && checkers[i] == 0) {
                 int x = (i - 8) % 8;
                 x *= 50;
                 int y = (i - 8) / 8;
                 y *= 50; 
                 handler.replaceObject((i - 8) * 3, new GRAYTILE(x, y, ID.GRAYTILE));
                 possibleMoves[i] = 0;
+                possibleType[i] = 0;
             }
         }
         int checkerType = checkers[objectLocation + 8];
@@ -231,24 +329,28 @@ public class GameRemake extends Canvas implements Runnable {
         if (objectLocation % 8 != 0 && objectLocation - 9 > -1 && (checkerType == 2 || checkerLevel == 1)) {
             if ((checkerType % 2 == 0 || checkerLevel == 1) && checkers[objectLocation - 1] == 0) {
                 possibleMoves[objectLocation - 1] = 1;
+                possibleType[objectLocation - 1] = checkerType;
             }
         }
         // Top Right || Possible Move: 2
         if ((objectLocation + 1) % 8 != 0 && objectLocation - 7 > -1 && (checkerType == 2 || checkerLevel == 1)) {
             if ((checkerType % 2 == 0 || checkerLevel == 1) && checkers[objectLocation + 1] == 0) {
                 possibleMoves[objectLocation + 1] = 2;
+                possibleType[objectLocation + 1] = checkerType;
             }
         }
         // Bottom Left || Possible Move: 3
         if (objectLocation % 8 != 0 && objectLocation + 7 < 64 && (checkerType == 3 || checkerLevel == 1)) {
             if ((checkerType % 3 == 0 || checkerLevel == 1) && checkers[objectLocation + 15] == 0) {
                 possibleMoves[objectLocation + 15] = 3;
+                possibleType[objectLocation + 15] = checkerType;
             }
         }
         // Bottom Right || Possible Move: 4
         if ((objectLocation + 1) % 8 != 0 && objectLocation + 9 < 64 && (checkerType == 3 || checkerLevel == 1)) {
             if ((checkerType % 3 == 0 || checkerLevel == 1) && checkers[objectLocation + 17] == 0) {
                 possibleMoves[objectLocation + 17] = 4;
+                possibleType[objectLocation + 17] = checkerType;
             }
         }
         int[] tempCheckers = new int[100];
@@ -263,12 +365,14 @@ public class GameRemake extends Canvas implements Runnable {
                 if (checkerType % 2 == 0 && checkers[tempCheckers[a] - 9] % 3 == 0
                         && checkers[tempCheckers[a] - 18] == 0 && checkers[tempCheckers[a] - 9] != 0) {
                     possibleMoves[tempCheckers[a] - 18] = 5;
+                    possibleType[tempCheckers[a] - 18] = checkerType;
                     b++;
                     tempCheckers2[b] = tempCheckers[a] - 18;
                 }
                 if (checkerType % 9 == 0 && checkers[tempCheckers[a] - 1] % 2 == 0
                         && checkers[tempCheckers[a] - 18] == 0 && checkers[tempCheckers[a] - 9] != 0) {
                     possibleMoves[tempCheckers[a] - 18] = 5;
+                    possibleType[tempCheckers[a] - 18] = checkerType;
                     b++;
                     tempCheckers2[b] = tempCheckers[a] - 18;
                 }
@@ -279,6 +383,7 @@ public class GameRemake extends Canvas implements Runnable {
                 if (checkerType % 2 == 0 && checkers[tempCheckers[a] - 7] % 3 == 0
                         && checkers[tempCheckers[a] - 14] == 0 && checkers[tempCheckers[a] - 7] != 0) {
                     possibleMoves[tempCheckers[a] - 14] = 6;
+                    possibleType[tempCheckers[a] - 14] = checkerType;
                     b++;
                     tempCheckers2[b] = tempCheckers[a] - 14;
                 }
@@ -287,6 +392,7 @@ public class GameRemake extends Canvas implements Runnable {
                     possibleMoves[tempCheckers[a] - 14] = 6;
                     b++;
                     tempCheckers2[b] = tempCheckers[a] - 14;
+                    possibleType[tempCheckers[a] - 14] = checkerType;
                 }
             }
             // Bottom Left || Possible Move: 7
@@ -295,12 +401,14 @@ public class GameRemake extends Canvas implements Runnable {
                 if (checkerType % 3 == 0 && checkers[tempCheckers[a] + 7] % 2 == 0
                         && checkers[tempCheckers[a] + 14] == 0 && checkers[tempCheckers[a] + 7] != 0) {
                     possibleMoves[tempCheckers[a] + 14] = 7;
+                    possibleType[tempCheckers[a] + 14] = checkerType;
                     b++;
                     tempCheckers2[b] = tempCheckers[a] + 14;
                 }
                 if (checkerType % 4 == 0 && checkers[tempCheckers[a] + 7] % 3 == 0
                         && checkers[tempCheckers[a] + 14] == 0 && checkers[tempCheckers[a] + 7] != 0) {
                     possibleMoves[tempCheckers[a] + 14] = 7;
+                    possibleType[tempCheckers[a] + 14] = checkerType;
                     b++;
                     tempCheckers2[b] = tempCheckers[a] + 14;
                 }
@@ -311,12 +419,14 @@ public class GameRemake extends Canvas implements Runnable {
                 if (checkerType % 3 == 0 && checkers[tempCheckers[a] + 9] % 2 == 0
                         && checkers[tempCheckers[a] + 18] == 0 && checkers[tempCheckers[a] + 9] != 0) {
                     possibleMoves[tempCheckers[a] + 18] = 8;
+                    possibleType[tempCheckers[a] + 18] = checkerType;
                     b++;
                     tempCheckers2[b] = tempCheckers[a] + 18;
                 }
                 if (checkerType % 4 == 0 && checkers[tempCheckers[a] + 9] % 3 == 0
                         && checkers[tempCheckers[a] + 18] == 0 && checkers[tempCheckers[a] + 9] != 0) {
                     possibleMoves[tempCheckers[a] + 18] = 8;
+                    possibleType[tempCheckers[a] + 18] = checkerType;
                     b++;
                     tempCheckers2[b] = tempCheckers[a] + 18;
                 }
