@@ -1,4 +1,5 @@
 import static java.lang.System.out;
+import java.util.concurrent.TimeUnit;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
@@ -25,6 +26,7 @@ public class Game extends Canvas implements Runnable {
         for (int i = 0; i != 100; i++) {
             checkers[i] = 0;
             possibleMoves[i] = 0;
+            possibleType[i] = 0;
             tiles[i] = null;
         }
         while (line != Math.sqrt(size)) {
@@ -181,7 +183,8 @@ public class Game extends Canvas implements Runnable {
         int player = 1;
         int objectLocation = 0;
         boolean runAgain = false;
-        while (clicks != -1) {
+        boolean GameRunning = true;
+        while (GameRunning) {
             while (clicks == mouse.getClicks()) {
                 out.print("");
             }
@@ -358,7 +361,112 @@ public class Game extends Canvas implements Runnable {
                 }
                 printCheckers();
             }
+            int q = 0;
+            int g = 0;
+            for(int i = 0; i != 100; i++){
+                if(checkers[i] != 0 && checkers[i] % 3 == 0)
+                    q++;
+                if(checkers[i] != 0 && checkers[i] % 2 == 0)
+                    g++;
+            }
+            if(q == 0 || g == 0)
+                GameRunning = false;
+            if(q == 0)
+                out.println("Player 1 (RED) Winner!!!");
+            if(g == 0)
+                out.println("Player 2 (BLACK) Winner!!!");
         }
+        try{
+            TimeUnit.SECONDS.sleep(5);
+        }catch(InterruptedException E){
+
+        }
+        handler.reset();
+        for (int i = 0; i != 100; i++) {
+            checkers[i] = 0;
+            possibleMoves[i] = 0;
+            possibleType[i] = 0;
+            tiles[i] = null;
+        }
+        while (line != Math.sqrt(size)) {
+            line++;
+        }
+        WIDTH = 50 * line;
+        HEIGHT = 50 * line;
+
+        int f = 0;
+        int d = 0;
+        int g = 1;
+        int h = 0;
+        int v = 0;
+        String lastTile = "GRAYTILE";
+        int x = 0;
+        while (d != size) {
+            x = 0;
+            if (f % 2 == 0 && h <= 2) {
+                if (h == 1)
+                    checkers[(f + (h * 8)) + 8] = 3;
+                if (h != 1)
+                    checkers[((f + (h * 8)) + 1) + 8] = 3;
+            }
+            if (f % 2 == 0 && h >= 5) {
+                if (h == 6)
+                    checkers[((f + (h * 8)) + 1) + 8] = 2;
+                if (h != 6)
+                    checkers[(f + (h * 8)) + 8] = 2;
+            }
+            if (lastTile.equals("WHITETILE") && x == 0 && checkers[(f + (h * 8)) + 8] == 0) {
+                handler.addObject(new GRAYTILE(0 + (f * 50), 0 + (h * 50), ID.GRAYTILE));
+                lastTile = "GRAYTILE";
+                x++;
+            }
+            if (lastTile.equals("GRAYTILE") && x == 0 && checkers[(f + (h * 8)) + 8] == 0) {
+                handler.addObject(new WHITETILE(0 + (f * 50), 0 + (h * 50), ID.WHITETILE));
+                lastTile = "WHITETILE";
+                x++;
+            }
+            if (checkers[(f + (h * 8)) + 8] == 3)
+                handler.addObject(new BLACKCHECKER(0 + (f * 50), 0 + (h * 50), ID.BLACKCHECKER));
+            if (checkers[(f + (h * 8)) + 8] == 2)
+                handler.addObject(new REDCHECKER(0 + (f * 50), 0 + (h * 50), ID.REDCHECKER));
+            if (checkers[(f + (h * 8)) + 8] != 0) {
+                if (lastTile.equals("GRAYTILE") && x == 0) {
+                    lastTile = "WHITETILE";
+                    x++;
+                }
+                if (lastTile.equals("WHITETILE") && x == 0) {
+                    lastTile = "GRAYTILE";
+                    x++;
+                }
+            }
+            if (lastTile.equals("GRAYTILE")) {
+                tiles[v] = "GRAYTILE";
+                v++;
+            }
+            if (lastTile.equals("WHITETILE")) {
+                tiles[v] = "WHITETILE";
+                v++;
+            }
+            handler.addObject(new COLUMN(0 + (f * 50), 0 + (h * 50), ID.COLUMN));
+            handler.addObject(new ROW(0 + (f * 50), 0 + (h * 50), ID.ROW));
+            f++;
+            d++;
+            g++;
+            if (g == line + 1) {
+                g = 1;
+                f = 0;
+                h++;
+                if (lastTile.equals("GRAYTILE") && x == 1) {
+                    lastTile = "WHITETILE";
+                    x++;
+                }
+                if (lastTile.equals("WHITETILE") && x == 1) {
+                    lastTile = "GRAYTILE";
+                    x++;
+                }
+            }
+        }
+        begin();
     }
 
     public void printCheckers() {
