@@ -29,8 +29,8 @@ public class GameRemake extends Canvas implements Runnable {
         while (line != Math.sqrt(size)) {
             line++;
         }
-        WIDTH = 52 * line;
-        HEIGHT = 54 * line;
+        WIDTH = 50 * line;
+        HEIGHT = 50 * line;
         new Window(WIDTH, HEIGHT, "TICTACTOE", null, this, true);
 
         handler = new Handler();
@@ -178,31 +178,160 @@ public class GameRemake extends Canvas implements Runnable {
     public void begin() {
         int clicks = 0;
         int objectLocation = 0;
-        boolean clickedOnProperChecker = false;
-        while(clicks == mouse.getClicks()){
-            out.print("");
-        }
-        clicks = mouse.getClicks();
-        objectLocation = mouse.getObjectLoc();
-        if(checkers[objectLocation + 8] != 0){
-            clickedOnProperChecker = true;
-        }
-        if(clickedOnProperChecker){
-            getPossibleMoves(objectLocation);
+        while (clicks != -1) {
+            while (clicks == mouse.getClicks()) {
+                out.print("");
+            }
+            clicks = mouse.getClicks();
+            objectLocation = mouse.getObjectLoc();
+            if(checkers[objectLocation + 8] != 0)
+                getPossibleMoves(objectLocation);
+            if(possibleMoves[objectLocation + 8] != 0){
+                switch(possibleMoves[objectLocation + 8]){
+                    case 1:
+                    
+                    break;
+                    case 2:
+                    break;
+                    case 3:
+                    break;
+                    case 4:
+                    break;
+                    case 5:
+                    break;
+                    case 6:
+                    break;
+                    case 7:
+                    break;
+                    case 8:
+                    break;
+                }
+            }
         }
     }
-    // checker == 3 || 6 == black
+
+    // checker == 3 || 9 == black
     // checker == 2 || 4 == red
-    public void getPossibleMoves(int objectLocation){
-        int tempChecker = 0;
+    public void getPossibleMoves(int objectLocation) {
+        for (int i = 0; i != 100; i++) {
+            if (possibleMoves[i] != 0) {
+                int x = (i - 8) % 8;
+                x *= 50;
+                int y = (i - 8) / 8;
+                y *= 50; 
+                handler.replaceObject((i - 8) * 3, new GRAYTILE(x, y, ID.GRAYTILE));
+                possibleMoves[i] = 0;
+            }
+        }
         int checkerType = checkers[objectLocation + 8];
         int checkerLevel = 0;
-        if(checkerType > 3)
+        if (checkerType > 3)
             checkerLevel = 1;
-        // Top Left
-        if(checkerType == 2 || checkerLevel == 3){
-            if(checkerType % 2 == 0 && checkers[objectLocation - 1] % 3 == 0){
-                
+        // Top Left || Possible Move: 1
+        if (objectLocation % 8 != 0 && objectLocation - 9 > -1 && (checkerType == 2 || checkerLevel == 1)) {
+            if ((checkerType % 2 == 0 || checkerLevel == 1) && checkers[objectLocation - 1] == 0) {
+                possibleMoves[objectLocation - 1] = 1;
+            }
+        }
+        // Top Right || Possible Move: 2
+        if ((objectLocation + 1) % 8 != 0 && objectLocation - 7 > -1 && (checkerType == 2 || checkerLevel == 1)) {
+            if ((checkerType % 2 == 0 || checkerLevel == 1) && checkers[objectLocation + 1] == 0) {
+                possibleMoves[objectLocation + 1] = 2;
+            }
+        }
+        // Bottom Left || Possible Move: 3
+        if (objectLocation % 8 != 0 && objectLocation + 7 < 64 && (checkerType == 3 || checkerLevel == 1)) {
+            if ((checkerType % 3 == 0 || checkerLevel == 1) && checkers[objectLocation + 15] == 0) {
+                possibleMoves[objectLocation + 15] = 3;
+            }
+        }
+        // Bottom Right || Possible Move: 4
+        if ((objectLocation + 1) % 8 != 0 && objectLocation + 9 < 64 && (checkerType == 3 || checkerLevel == 1)) {
+            if ((checkerType % 3 == 0 || checkerLevel == 1) && checkers[objectLocation + 17] == 0) {
+                possibleMoves[objectLocation + 17] = 4;
+            }
+        }
+        int[] tempCheckers = new int[100];
+        int[] tempCheckers2 = new int[400];
+        int a = 1, b = 1;
+        tempCheckers[a] = objectLocation + 8;
+        tempCheckers2[b] = objectLocation + 8;
+        while (a != 100) {
+            // Top Left || Possible Move: 5
+            if (tempCheckers[a] % 8 != 0 && (tempCheckers[a] - 9) % 8 != 0 && tempCheckers[a] - 26 > -1
+                    && (checkerType == 2 || checkerLevel == 1)) {
+                if (checkerType % 2 == 0 && checkers[tempCheckers[a] - 9] % 3 == 0
+                        && checkers[tempCheckers[a] - 18] == 0 && checkers[tempCheckers[a] - 9] != 0) {
+                    possibleMoves[tempCheckers[a] - 18] = 5;
+                    b++;
+                    tempCheckers2[b] = tempCheckers[a] - 18;
+                }
+                if (checkerType % 9 == 0 && checkers[tempCheckers[a] - 1] % 2 == 0
+                        && checkers[tempCheckers[a] - 18] == 0 && checkers[tempCheckers[a] - 9] != 0) {
+                    possibleMoves[tempCheckers[a] - 18] = 5;
+                    b++;
+                    tempCheckers2[b] = tempCheckers[a] - 18;
+                }
+            }
+            // Top Right || Possible Move: 6
+            if ((tempCheckers[a] + 1) % 8 != 0 && (tempCheckers[a] - 6) % 8 != 0 && tempCheckers[a] - 22 > -1
+                    && (checkerType == 2 || checkerLevel == 1)) {
+                if (checkerType % 2 == 0 && checkers[tempCheckers[a] - 7] % 3 == 0
+                        && checkers[tempCheckers[a] - 14] == 0 && checkers[tempCheckers[a] - 7] != 0) {
+                    possibleMoves[tempCheckers[a] - 14] = 6;
+                    b++;
+                    tempCheckers2[b] = tempCheckers[a] - 14;
+                }
+                if (checkerType % 9 == 0 && checkers[tempCheckers[a] - 7] % 2 == 0
+                        && checkers[tempCheckers[a] - 14] == 0 && checkers[tempCheckers[a] - 7] != 0) {
+                    possibleMoves[tempCheckers[a] - 14] = 6;
+                    b++;
+                    tempCheckers2[b] = tempCheckers[a] - 14;
+                }
+            }
+            // Bottom Left || Possible Move: 7
+            if (tempCheckers[a] % 8 != 0 && (tempCheckers[a] + 7) % 8 != 0 && tempCheckers[a] + 6 < 64
+                    && (checkerType == 3 || checkerLevel == 1)) {
+                if (checkerType % 3 == 0 && checkers[tempCheckers[a] + 7] % 2 == 0
+                        && checkers[tempCheckers[a] + 14] == 0 && checkers[tempCheckers[a] + 7] != 0) {
+                    possibleMoves[tempCheckers[a] + 14] = 7;
+                    b++;
+                    tempCheckers2[b] = tempCheckers[a] + 14;
+                }
+                if (checkerType % 4 == 0 && checkers[tempCheckers[a] + 7] % 3 == 0
+                        && checkers[tempCheckers[a] + 14] == 0 && checkers[tempCheckers[a] + 7] != 0) {
+                    possibleMoves[tempCheckers[a] + 14] = 7;
+                    b++;
+                    tempCheckers2[b] = tempCheckers[a] + 14;
+                }
+            }
+            // Bottom Right || Possible Move: 8
+            if ((tempCheckers[a] + 1) % 8 != 0 && (tempCheckers[a] + 10) % 8 != 0 && tempCheckers[a] + 10 < 64
+                    && (checkerType == 2 || checkerLevel == 1)) {
+                if (checkerType % 3 == 0 && checkers[tempCheckers[a] + 9] % 2 == 0
+                        && checkers[tempCheckers[a] + 18] == 0 && checkers[tempCheckers[a] + 9] != 0) {
+                    possibleMoves[tempCheckers[a] + 18] = 8;
+                    b++;
+                    tempCheckers2[b] = tempCheckers[a] + 18;
+                }
+                if (checkerType % 4 == 0 && checkers[tempCheckers[a] + 9] % 3 == 0
+                        && checkers[tempCheckers[a] + 18] == 0 && checkers[tempCheckers[a] + 9] != 0) {
+                    possibleMoves[tempCheckers[a] + 18] = 8;
+                    b++;
+                    tempCheckers2[b] = tempCheckers[a] + 18;
+                }
+            }
+            a++;
+            if (a != 100)
+                tempCheckers[a] = tempCheckers2[a];
+        }
+        for (int i = 0; i != 100; i++) {
+            if (possibleMoves[i] != 0) {
+                int x = (i - 8) % 8;
+                x *= 50;
+                int y = (i - 8) / 8;
+                y *= 50; 
+                handler.replaceObject((i - 8) * 3, new POSSIBLEMOVE(x, y, ID.POSSIBLEMOVE));
             }
         }
     }
