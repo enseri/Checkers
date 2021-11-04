@@ -1,5 +1,7 @@
 Welcome to Checkers
+
 Made by enseri, 2021 November 4
+
 How to play:
     https://www.youtube.com/watch?time_continue=60&v=ScKIdStgAfU&feature=emb_logo
     Not My Video -- Credit: Gather Together Games 'on youtube'
