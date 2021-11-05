@@ -214,7 +214,7 @@ public class Game extends Canvas implements Runnable {
                 while (runAgain) {
                     switch (possibleMoves[tempObjectLocation + 8]) {
                     case 1:
-                        if (objectLocation < 10 && possibleType[objectLocation + 8] == 2)
+                        if (objectLocation < 8 && possibleType[objectLocation + 8] == 2)
                             possibleType[objectLocation + 8] = 4;
                         runAgain = false;
                         checkers[objectLocation + 17] = 0;
@@ -223,7 +223,7 @@ public class Game extends Canvas implements Runnable {
                         checkers[objectLocation + 8] = possibleType[objectLocation + 8];
                         break;
                     case 2:
-                        if (objectLocation < 10 && possibleType[objectLocation + 8] == 2)
+                        if (objectLocation < 8 && possibleType[objectLocation + 8] == 2)
                             possibleType[objectLocation + 8] = 4;
                         runAgain = false;
                         checkers[objectLocation + 15] = 0;
@@ -250,7 +250,7 @@ public class Game extends Canvas implements Runnable {
                         checkers[objectLocation + 8] = possibleType[objectLocation + 8];
                         break;
                     case 5:
-                        if (objectLocation < 10 && possibleType[objectLocation + 8] == 2)
+                        if (objectLocation < 8 && possibleType[objectLocation + 8] == 2)
                             possibleType[objectLocation + 8] = 4;
                         runAgain = false;
                         if (possibleMoves[tempObjectLocation + 26] != 0) {
@@ -274,7 +274,7 @@ public class Game extends Canvas implements Runnable {
                         }
                         break;
                     case 6:
-                        if (objectLocation < 10 && possibleType[objectLocation + 8] == 2)
+                        if (objectLocation < 8 && possibleType[objectLocation + 8] == 2)
                             possibleType[objectLocation + 8] = 4;
                         runAgain = false;
                         if (possibleMoves[tempObjectLocation + 22] != 0) {
@@ -559,14 +559,14 @@ public class Game extends Canvas implements Runnable {
             if (tempCheckers[a] % 8 != 0 && (tempCheckers[a] - 9) % 8 != 0 && tempCheckers[a] - 26 > -1
                     && (checkerType == 2 || checkerLevel == 1)) {
                 if (checkerType % 2 == 0 && checkers[tempCheckers[a] - 9] % 3 == 0
-                        && checkers[tempCheckers[a] - 18] == 0 && checkers[tempCheckers[a] - 9] != 0) {
+                        && checkers[tempCheckers[a] - 18] == 0 && checkers[tempCheckers[a] - 9] != 0 && possibleMoves[tempCheckers[a] - 18] == 0) {
                     possibleMoves[tempCheckers[a] - 18] = 5;
                     possibleType[tempCheckers[a] - 18] = checkerType;
                     b++;
                     tempCheckers2[b] = tempCheckers[a] - 18;
                 }
                 if (checkerType % 9 == 0 && checkers[tempCheckers[a] - 1] % 2 == 0
-                        && checkers[tempCheckers[a] - 18] == 0 && checkers[tempCheckers[a] - 9] != 0) {
+                        && checkers[tempCheckers[a] - 18] == 0 && checkers[tempCheckers[a] - 9] != 0 && possibleMoves[tempCheckers[a] - 18] == 0) {
                     possibleMoves[tempCheckers[a] - 18] = 5;
                     possibleType[tempCheckers[a] - 18] = checkerType;
                     b++;
@@ -577,14 +577,14 @@ public class Game extends Canvas implements Runnable {
             if ((tempCheckers[a] + 1) % 8 != 0 && (tempCheckers[a] - 6) % 8 != 0 && tempCheckers[a] - 22 > -1
                     && (checkerType == 2 || checkerLevel == 1)) {
                 if (checkerType % 2 == 0 && checkers[tempCheckers[a] - 7] % 3 == 0
-                        && checkers[tempCheckers[a] - 14] == 0 && checkers[tempCheckers[a] - 7] != 0) {
+                        && checkers[tempCheckers[a] - 14] == 0 && checkers[tempCheckers[a] - 7] != 0 && possibleMoves[tempCheckers[a] - 14] == 0) {
                     possibleMoves[tempCheckers[a] - 14] = 6;
                     possibleType[tempCheckers[a] - 14] = checkerType;
                     b++;
                     tempCheckers2[b] = tempCheckers[a] - 14;
                 }
                 if (checkerType % 9 == 0 && checkers[tempCheckers[a] - 7] % 2 == 0
-                        && checkers[tempCheckers[a] - 14] == 0 && checkers[tempCheckers[a] - 7] != 0) {
+                        && checkers[tempCheckers[a] - 14] == 0 && checkers[tempCheckers[a] - 7] != 0 && possibleMoves[tempCheckers[a] - 14] == 0) {
                     possibleMoves[tempCheckers[a] - 14] = 6;
                     b++;
                     tempCheckers2[b] = tempCheckers[a] - 14;
@@ -595,14 +595,14 @@ public class Game extends Canvas implements Runnable {
             if (tempCheckers[a] % 8 != 0 && (tempCheckers[a] + 7) % 8 != 0 && tempCheckers[a] + 6 < 64
                     && (checkerType == 3 || checkerLevel == 1)) {
                 if (checkerType % 3 == 0 && checkers[tempCheckers[a] + 7] % 2 == 0
-                        && checkers[tempCheckers[a] + 14] == 0 && checkers[tempCheckers[a] + 7] != 0) {
+                        && checkers[tempCheckers[a] + 14] == 0 && checkers[tempCheckers[a] + 7] != 0 && possibleMoves[tempCheckers[a] + 14] == 0) {
                     possibleMoves[tempCheckers[a] + 14] = 7;
                     possibleType[tempCheckers[a] + 14] = checkerType;
                     b++;
                     tempCheckers2[b] = tempCheckers[a] + 14;
                 }
                 if (checkerType % 4 == 0 && checkers[tempCheckers[a] + 7] % 3 == 0
-                        && checkers[tempCheckers[a] + 14] == 0 && checkers[tempCheckers[a] + 7] != 0) {
+                        && checkers[tempCheckers[a] + 14] == 0 && checkers[tempCheckers[a] + 7] != 0 && possibleMoves[tempCheckers[a] + 14] == 0) {
                     possibleMoves[tempCheckers[a] + 14] = 7;
                     possibleType[tempCheckers[a] + 14] = checkerType;
                     b++;
@@ -613,14 +613,14 @@ public class Game extends Canvas implements Runnable {
             if ((tempCheckers[a] + 1) % 8 != 0 && (tempCheckers[a] + 10) % 8 != 0 && tempCheckers[a] + 10 < 64
                     && (checkerType == 3 || checkerLevel == 1)) {
                 if (checkerType % 3 == 0 && checkers[tempCheckers[a] + 9] % 2 == 0
-                        && checkers[tempCheckers[a] + 18] == 0 && checkers[tempCheckers[a] + 9] != 0) {
+                        && checkers[tempCheckers[a] + 18] == 0 && checkers[tempCheckers[a] + 9] != 0 && possibleMoves[tempCheckers[a] + 18] == 0) {
                     possibleMoves[tempCheckers[a] + 18] = 8;
                     possibleType[tempCheckers[a] + 18] = checkerType;
                     b++;
                     tempCheckers2[b] = tempCheckers[a] + 18;
                 }
                 if (checkerType % 4 == 0 && checkers[tempCheckers[a] + 9] % 3 == 0
-                        && checkers[tempCheckers[a] + 18] == 0 && checkers[tempCheckers[a] + 9] != 0) {
+                        && checkers[tempCheckers[a] + 18] == 0 && checkers[tempCheckers[a] + 9] != 0 && possibleMoves[tempCheckers[a] + 18] == 0) {
                     possibleMoves[tempCheckers[a] + 18] = 8;
                     possibleType[tempCheckers[a] + 18] = checkerType;
                     b++;
