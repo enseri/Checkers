@@ -8,7 +8,7 @@ public class Window extends JFrame {
         frame.setMaximumSize(new Dimension(width, height));
         frame.setMinimumSize(new Dimension(width, height));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
+        frame.setResizable(true);
         frame.setLocationRelativeTo(null);
         frame.add(game);
         frame.setVisible(true);

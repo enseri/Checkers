@@ -16,8 +16,7 @@ How to play:
             Yours(potentially):
             WIDTH = 52 * line;
             HEIGHT = 54 * line;
-            simply go into the game files find these lines and adjust them to the proper size
-            this will allow you to see the entire board.
+            simply go into the game and adjust the size of screen with your mouse cursor either by pulling a corner or a side.
 
             The console will alert you of whos the winner after each game has ended
             5 seconds after the alert the game will be reset automatically.
