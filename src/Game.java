@@ -565,7 +565,7 @@ public class Game extends Canvas implements Runnable {
                     b++;
                     tempCheckers2[b] = tempCheckers[a] - 18;
                 }
-                if (checkerType % 9 == 0 && checkers[tempCheckers[a] - 1] % 2 == 0
+                if (checkerType % 9 == 0 && checkers[tempCheckers[a] - 9] % 2 == 0
                         && checkers[tempCheckers[a] - 18] == 0 && checkers[tempCheckers[a] - 9] != 0 && possibleMoves[tempCheckers[a] - 18] == 0) {
                     possibleMoves[tempCheckers[a] - 18] = 5;
                     possibleType[tempCheckers[a] - 18] = checkerType;
